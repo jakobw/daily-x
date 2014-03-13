@@ -18,7 +18,7 @@ class DailyX
     latest_create = Dir.entries(dir)
                      .drop(2)
                      .map { |f| File.new(dir + "/#{f}").ctime }
-                     .min
+                     .max
 
     !latest_create.nil? && Time.now - latest_create < 3600 * 24
   end
