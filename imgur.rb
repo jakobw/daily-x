@@ -9,9 +9,13 @@ class Imgur
   end
 
   def subreddit_top_day(sub)
-    self.class.get(
+    get(
       "/gallery/r/#{sub}/top/day",
       headers: { 'Authorization' => "CLIENT-ID #{@key}" }
     ).parsed_response
+  end
+
+  def get(*args)
+    self.class.get(*args)
   end
 end
