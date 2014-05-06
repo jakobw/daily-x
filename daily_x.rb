@@ -1,7 +1,10 @@
 require_relative 'imgur'
+require 'open-uri'
 
 class DailyX
   def initialize(sub, imgur_key)
+    return unless has_internet?
+
     @sub = sub
     @imgur = Imgur.new imgur_key
   end
@@ -23,5 +26,13 @@ class DailyX
                      .max
 
     !latest_create.nil? && Time.now - latest_create < 3600 * 24
+  end
+end
+
+def has_internet?
+  begin
+    true if open("http://www.google.com/")
+  rescue
+    false
   end
 end
